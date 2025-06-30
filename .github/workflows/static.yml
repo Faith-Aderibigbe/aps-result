@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aderibigbe Private School Result Checker</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      animation: fadeIn 2s ease;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      animation: slideIn 1.5s ease;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    input {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 250px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: #4fd1c5;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #38b2ac;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      width: 90%;
+      height: 90%;
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      color: #000;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Aderibigbe Private School Result Checker</h2>
+    <input type="text" id="studentId" placeholder="e.g. APS123456">
+    <br>
+    <button onclick="goToResult()">View Result</button>
+  </div>
+
+  <div class="modal" id="resultModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <iframe id="resultFrame"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function goToResult() {
+      const id = document.getElementById("studentId").value.trim();
+      if (id !== "") {
+        const url = "https://aps-result-portal.softr.app/student/result/request?recordId=" + encodeURIComponent(id);
+        document.getElementById("resultFrame").src = url;
+        document.getElementById("resultModal").style.display = "flex";
+      } else {
+        alert("Please enter a valid Student ID.");
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("resultModal").style.display = "none";
+      document.getElementById("resultFrame").src = "";
+    }
+  </script>
+</body>
+</html>
